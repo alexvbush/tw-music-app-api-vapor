@@ -1,13 +1,14 @@
 import Vapor
 
+class FakeTagsStorageForDevelopment: TagsStorage {
+    func all() -> [[String: String]] {
+        return []
+    }
+}
+
 extension Droplet {
     func setupRoutes() throws {
-        get("hello") { req in
-            var json = JSON()
-            try json.set("hello", "world")
-            return json
-        }
-
+        
         get("plaintext") { req in
             return "Hello, world!"
         }
@@ -21,5 +22,10 @@ extension Droplet {
         get("description") { req in return req.description }
         
         try resource("posts", PostController.self)
+        
+        let tagsStorage = FakeTagsStorageForDevelopment()
+        let tagsController = TagsController(tagsStorage: tagsStorage)
+        
+        grouped("api").grouped("v1").resource("tags", tagsController)
     }
 }

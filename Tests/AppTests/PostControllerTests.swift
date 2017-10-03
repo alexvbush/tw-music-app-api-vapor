@@ -21,7 +21,10 @@ class PostControllerTests: TestCase {
     /// See RouteTests for an example of a live server test
     let controller = PostController()
     
-    func testPostRoutes() throws {        
+    func testPostRoutes() throws {
+        
+//        try Post.all()
+        
         guard let postOne = try storeNewPost(), let idOne = postOne.id?.int else {
             XCTFail()
             return

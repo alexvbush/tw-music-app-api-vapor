@@ -10,19 +10,28 @@ import HTTP
 
 class RouteTests: TestCase {
     let drop = try! Droplet.testable()
-    
-    func testHello() throws {
-        try drop
-            .testResponse(to: .get, at: "hello")
-            .assertStatus(is: .ok)
-            .assertJSON("hello", equals: "world")
-    }
 
     func testInfo() throws {
         try drop
             .testResponse(to: .get, at: "info")
             .assertStatus(is: .ok)
             .assertBody(contains: "0.0.0.0")
+    }
+    
+    func testThatItHasGETrouteForTags() throws {
+        // given
+        let config = try Config(arguments: ["vapor", "--env=test"])
+        try config.setup()
+        let server = try Droplet(config)
+        try server.setup()
+        
+        // when
+        let doesContainTagsRoute = drop.router.routes.contains { (route) -> Bool in
+            return route.contains("tags")
+        }
+        
+        // then
+        XCTAssertTrue(doesContainTagsRoute)
     }
 }
 
@@ -32,8 +41,7 @@ extension RouteTests {
     /// This is a requirement for XCTest on Linux
     /// to function properly.
     /// See ./Tests/LinuxMain.swift for examples
-    static let allTests = [
-        ("testHello", testHello),
+    static let allTests = [        
         ("testInfo", testInfo),
     ]
 }
