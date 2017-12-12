@@ -1,20 +1,14 @@
 import Vapor
 
-protocol CategoriesStorage {
-    func all() -> [[String: String]]
-}
-
 class CategoriesController: ResourceRepresentable {
     
-    private let categoriesStorage: CategoriesStorage
+    private let categoriesStorage: CategoriesStorageInterface
     
-    init(categoriesStorage: CategoriesStorage) {
+    init(categoriesStorage: CategoriesStorageInterface) {
         self.categoriesStorage = categoriesStorage
     }
     
     func index(_ request: Request) throws -> ResponseRepresentable {
-//        return JSON(StructuredData.string("some string"))
-//        return try Post.all().makeJSON()
         let categories = categoriesStorage.all()
         
         return JSON(["categories": StructuredData.array(categories.map({ (category) -> StructuredData in

@@ -6,7 +6,7 @@ import HTTP
 
 import FluentProvider
 
-class FakeCategoriesStorage: CategoriesStorage {
+class FakeCategoriesStorage: CategoriesStorageInterface {
     func all() -> [[String: String]] {
         return [["name": "tag1"], ["name": "tag2"]]
     }

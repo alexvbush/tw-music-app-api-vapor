@@ -1,11 +1,5 @@
 import Vapor
 
-class FakeCategoriesStorageForDevelopment: CategoriesStorage {
-    func all() -> [[String: String]] {
-        return []
-    }
-}
-
 extension Droplet {
     func setupRoutes() throws {
         
@@ -23,7 +17,7 @@ extension Droplet {
         
         try resource("posts", PostController.self)
         
-        let categoriesStorage = FakeCategoriesStorageForDevelopment()
+        let categoriesStorage = CategoriesStorage()
         let categoriesController = CategoriesController(categoriesStorage: categoriesStorage)
         
         grouped("api").grouped("v1").get("categories", handler: categoriesController.index)
