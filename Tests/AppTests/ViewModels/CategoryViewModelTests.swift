@@ -1,8 +1,6 @@
 import XCTest
 import Testing
-import HTTP
 @testable import App
-@testable import Vapor
 
 class CategoryViewModelTests: TestCase {
     

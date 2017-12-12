@@ -3,7 +3,10 @@ import Vapor
 final class SubcategoriesController: ResourceRepresentable {
  
     func index(_ request: Request) throws -> ResponseRepresentable {
-        print(request)
+        let categoryId = try request.parameters.next(String.self)
+        
+//        let subcategories = subcategoriesController.subcategories(categoryId: categoryId)
+        
         return "works"
     }
     
