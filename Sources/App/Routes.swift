@@ -1,6 +1,6 @@
 import Vapor
 
-class FakeTagsStorageForDevelopment: TagsStorage {
+class FakeCategoriesStorageForDevelopment: CategoriesStorage {
     func all() -> [[String: String]] {
         return []
     }
@@ -23,9 +23,10 @@ extension Droplet {
         
         try resource("posts", PostController.self)
         
-        let tagsStorage = FakeTagsStorageForDevelopment()
-        let tagsController = TagsController(tagsStorage: tagsStorage)
+        let categoriesStorage = FakeCategoriesStorageForDevelopment()
+        let categoriesController = CategoriesController(categoriesStorage: categoriesStorage)
         
-        grouped("api").grouped("v1").resource("tags", tagsController)
+        grouped("api").grouped("v1").get("categories", handler: categoriesController.index)
+        
     }
 }

@@ -6,18 +6,18 @@ import HTTP
 
 import FluentProvider
 
-class FakeTagsStorage: TagsStorage {
+class FakeCategoriesStorage: CategoriesStorage {
     func all() -> [[String: String]] {
         return [["name": "tag1"], ["name": "tag2"]]
     }
 }
 
-class TagsControllerTests: TestCase {
+class CategoriesControllerTests: TestCase {
     
-    func testThatItReturnsAListOfTags() throws {
+    func testThatItReturnsAListOfCategories() throws {
         // given
-        let fakeTagsStorage = FakeTagsStorage()
-        let controller = TagsController(tagsStorage: fakeTagsStorage)
+        let fakeCategoriesStorage = FakeCategoriesStorage()
+        let controller = CategoriesController(categoriesStorage: fakeCategoriesStorage)
         let request = Request.makeTest(method: .get)
         
         // when
@@ -25,13 +25,19 @@ class TagsControllerTests: TestCase {
         let json = response.json
         
         // then
-        XCTAssertNotNil(json)
-        XCTAssertEqual(json![0]!["name"], "tag1")
+        let categoriesJSON = json?["categories"]
+        XCTAssertNotNil(categoriesJSON)
+        XCTAssertEqual(categoriesJSON?[0]?["name"], "tag1")
+        XCTAssertEqual(categoriesJSON?[1]?["name"], "tag2")
         
 //        let json = try Post.all().makeJSON()
 //        print(json)
         
 //        print(JSON(StructuredData.string("some string")))
+    }
+    
+    func testThatItReturnsAListOfMainCategories() throws {
+        //
     }
    
 }
