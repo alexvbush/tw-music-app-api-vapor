@@ -9,7 +9,7 @@ class SubcategoriesFunctionalTests: TestCase {
     
     func testThatItRerturnsTheRightListOfSubcategoriesForArtistsCategory() throws {
         // given
-        let categoryId = "artists"
+        let categoryId = "1"
         
         // when // then
         try drop

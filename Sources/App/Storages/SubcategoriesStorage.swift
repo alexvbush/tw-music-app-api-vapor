@@ -5,9 +5,9 @@ protocol SubcategoriesStorageInterface {
 final class SubcategoriesStorage: SubcategoriesStorageInterface {
     
     private var subcategories = [
-        Subcategory(id: "1", categoryId: "1", name: "Artist 1", songIds: []),
-        Subcategory(id: "2", categoryId: "1", name: "Artist 2", songIds: []),
-        Subcategory(id: "3", categoryId: "1", name: "Artist 3", songIds: []),
+        Subcategory(id: "1", categoryId: "1", name: "Artist 1", songIds: [1,2,3]),
+        Subcategory(id: "2", categoryId: "1", name: "Artist 2", songIds: [4,5,6]),
+        Subcategory(id: "3", categoryId: "1", name: "Artist 3", songIds: [7,8,9]),
         
         Subcategory(id: "4", categoryId: "2", name: "Album 1", songIds: []),
         Subcategory(id: "5", categoryId: "2", name: "Album 2", songIds: []),

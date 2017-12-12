@@ -21,7 +21,8 @@ extension Droplet {
         let categoriesController = CategoriesController(categoriesStorage: categoriesStorage)
         grouped("api").grouped("v1").get("categories", handler: categoriesController.index)
         
-        let subcategoriesController = SubcategoriesController()
+        let subcategoriesStorage = SubcategoriesStorage()
+        let subcategoriesController = SubcategoriesController(subcategoriesStorage)
         grouped("api").grouped("v1").get("categories", String.parameter, "subcategories",
                                          handler: subcategoriesController.index)
         
