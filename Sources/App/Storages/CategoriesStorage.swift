@@ -1,11 +1,13 @@
 protocol CategoriesStorageInterface {
-    func all() -> [[String: String]]
+    func all() -> [Category]
 }
 
-class CategoriesStorage: CategoriesStorageInterface {
-    func all() -> [[String: String]] {
-        return [["id": "artists", "name": "Artists"],
-                ["id": "albums", "name": "Albums"],
-                ["id": "genre", "name": "Genre"]]
+final class CategoriesStorage: CategoriesStorageInterface {
+    func all() -> [Category] {
+        return [
+            Category(id: "artists", name: "Artists"),
+            Category(id: "albums", name: "Albums"),
+            Category(id: "genre", name: "Genre")
+        ]
     }
 }

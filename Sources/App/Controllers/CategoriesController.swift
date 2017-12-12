@@ -10,13 +10,13 @@ class CategoriesController: ResourceRepresentable {
     
     func index(_ request: Request) throws -> ResponseRepresentable {
         let categories = categoriesStorage.all()
+        let categoryViewModels = categories.map { return CategoryViewModel($0) }
+        let categoriesJSON = try categoryViewModels.map { try $0.makeJSON() }
         
-        return JSON(["categories": StructuredData.array(categories.map({ (category) -> StructuredData in
-            return StructuredData.object([
-                "id": StructuredData.string(category["id"]!),
-                "name" : StructuredData.string(category["name"]!)
-                ])
-        }))])
+        var jsonResponse = JSON()
+        try jsonResponse.set("categories", categoriesJSON)
+        
+        return jsonResponse
     }
 
     func makeResource() -> Resource<String> {

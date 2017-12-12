@@ -4,11 +4,12 @@ import HTTP
 @testable import App
 @testable import Vapor
 
-import FluentProvider
-
 class FakeCategoriesStorage: CategoriesStorageInterface {
-    func all() -> [[String: String]] {
-        return [["id": "1", "name": "tag1"], ["id": "2", "name": "tag2"]]
+    func all() -> [App.Category] {
+        return [
+            Category(id: "1", name: "tag1"),
+            Category(id: "2", name: "tag2"),
+        ]
     }
 }
 
