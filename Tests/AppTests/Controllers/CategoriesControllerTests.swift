@@ -8,13 +8,13 @@ import FluentProvider
 
 class FakeCategoriesStorage: CategoriesStorageInterface {
     func all() -> [[String: String]] {
-        return [["name": "tag1"], ["name": "tag2"]]
+        return [["id": "1", "name": "tag1"], ["id": "2", "name": "tag2"]]
     }
 }
 
 class CategoriesControllerTests: TestCase {
     
-    func testThatItReturnsAListOfCategories() throws {
+    func testThatItReturnsAListOfMainCategories() throws {
         // given
         let fakeCategoriesStorage = FakeCategoriesStorage()
         let controller = CategoriesController(categoriesStorage: fakeCategoriesStorage)
@@ -29,15 +29,5 @@ class CategoriesControllerTests: TestCase {
         XCTAssertNotNil(categoriesJSON)
         XCTAssertEqual(categoriesJSON?[0]?["name"], "tag1")
         XCTAssertEqual(categoriesJSON?[1]?["name"], "tag2")
-        
-//        let json = try Post.all().makeJSON()
-//        print(json)
-        
-//        print(JSON(StructuredData.string("some string")))
     }
-    
-    func testThatItReturnsAListOfMainCategories() throws {
-        //
-    }
-   
 }

@@ -15,7 +15,9 @@ class CategoriesFunctionalTests: TestCase {
             .assertJSON("categories", passes: { (caregories) -> (Bool) in
                 return caregories.array != nil
             })
-            .assertJSON("categories", equals: JSON([["name": "Artists"], ["name": "Albums"], ["name": "Genre"]]))            
+            .assertJSON("categories", equals: JSON([["id": "artists", "name": "Artists"],
+                                                    ["id": "albums", "name": "Albums"],
+                                                    ["id": "genre", "name": "Genre"]]))
     }
 }
 

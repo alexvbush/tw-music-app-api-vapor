@@ -12,7 +12,10 @@ class CategoriesController: ResourceRepresentable {
         let categories = categoriesStorage.all()
         
         return JSON(["categories": StructuredData.array(categories.map({ (category) -> StructuredData in
-            return StructuredData.object(["name" : StructuredData.string(category["name"]!)])
+            return StructuredData.object([
+                "id": StructuredData.string(category["id"]!),
+                "name" : StructuredData.string(category["name"]!)
+                ])
         }))])
     }
 

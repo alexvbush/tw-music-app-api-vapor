@@ -11,10 +11,18 @@ import HTTP
 class RouteTests: TestCase {
     let drop = try! Droplet.testable()
 
-    func testThatItHasGETrouteForTags() throws {
+    func testThatItHasGETRouteForCategories() throws {
         try drop
             .testResponse(to: .get, at: "api/v1/categories")
             .assertStatus(is: .ok)
+    }
+    
+    func testThatItHasGETRouteForSubcategories() throws {
+        try ["1", "2", "3"].forEach { (categoryId) in
+            try drop
+                .testResponse(to: .get, at: "api/v1/categories/\(categoryId)/subcategories")
+                .assertStatus(is: .ok)
+        }
     }
 }
 
@@ -25,6 +33,6 @@ extension RouteTests {
     /// to function properly.
     /// See ./Tests/LinuxMain.swift for examples
     static let allTests = [        
-        ("testThatItHasGETrouteForTags", testThatItHasGETrouteForTags),
+        ("testThatItHasGETRouteForCategories", testThatItHasGETRouteForCategories),
     ]
 }

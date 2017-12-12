@@ -4,6 +4,8 @@ protocol CategoriesStorageInterface {
 
 class CategoriesStorage: CategoriesStorageInterface {
     func all() -> [[String: String]] {
-        return [["name": "Artists"], ["name": "Albums"], ["name": "Genre"]]
+        return [["id": "artists", "name": "Artists"],
+                ["id": "albums", "name": "Albums"],
+                ["id": "genre", "name": "Genre"]]
     }
 }
