@@ -12,20 +12,13 @@ final class SubcategoriesController: ResourceRepresentable {
         let categoryId = try request.parameters.next(String.self)
         
         let subcategories = subcategoriesStorage.subcategories(categoryId: categoryId)
+        let subcategoryViewModels = subcategories.map { return SubcategoryViewModel($0) }
+        let subcategoriesJSON = try subcategoryViewModels.map { try $0.makeJSON() }
+
+        var jsonResponse = JSON()
+        try jsonResponse.set("subcategories", subcategoriesJSON)
         
-        let subcategoriesJSON = subcategories.map({ (subcategory) -> StructuredData in
-            let songIds = subcategory.songIds.map({ (songId) -> StructuredData in
-                return StructuredData.number(StructuredData.Number.int(songId))
-            })
-            
-            return StructuredData.object([
-                "id": StructuredData.string(subcategory.id),
-                "name" : StructuredData.string(subcategory.name),
-                "song_ids" : StructuredData.array(songIds)
-                ])
-        })
-        
-        return JSON(["subcategories": StructuredData.array(subcategoriesJSON)])
+        return jsonResponse
     }
     
     func makeResource() -> Resource<String> {
